@@ -33,6 +33,9 @@ public class CmfService {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
+    @Value("${app.cmf.enabled:true}")
+    private boolean enabled;
+
     @Value("${app.cmf.api-key:}")
     private String apiKey;
 
@@ -77,6 +80,10 @@ public class CmfService {
      */
     @Cacheable(value = "cmfResults", key = "#query.toLowerCase().trim()")
     public CmfResult verificar(String query) {
+        if (!enabled) {
+            log.debug("Verificación CMF deshabilitada (app.cmf.enabled=false)");
+            return CmfResult.unknown();
+        }
         if (apiKey == null || apiKey.isBlank()) {
             log.warn("CMF_API_KEY no configurada — omitiendo verificación CMF para: {}", query);
             return CmfResult.unknown();

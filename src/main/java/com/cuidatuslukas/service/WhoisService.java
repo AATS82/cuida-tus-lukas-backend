@@ -60,7 +60,23 @@ public class WhoisService {
     public String extractDomain(String url) {
         if (url == null || url.isBlank()) return null;
         Matcher m = DOMAIN_PATTERN.matcher(url.toLowerCase().trim());
-        return m.find() ? m.group(1) : null;
+        if (!m.find()) return null;
+        // Reducir al dominio registrable (últimas dos partes): paygo.com.ng → paygo.com.ng
+        // Elimina subdominios: officebnking.paygo.com.ng → paygo.com.ng
+        String full = m.group(1);
+        String[] parts = full.split("\\.");
+        if (parts.length > 2) {
+            // Detecta TLDs compuestos conocidos: co.uk, com.ar, com.ng, net.cl, etc.
+            String last2 = parts[parts.length - 2] + "." + parts[parts.length - 1];
+            boolean isCompoundTld = last2.matches("(com|net|org|gov|edu|co|ac)\\.[a-z]{2}");
+            int keep = isCompoundTld ? 3 : 2;
+            if (parts.length > keep) {
+                String[] registrable = new String[keep];
+                System.arraycopy(parts, parts.length - keep, registrable, 0, keep);
+                return String.join(".", registrable);
+            }
+        }
+        return full;
     }
 
     /**

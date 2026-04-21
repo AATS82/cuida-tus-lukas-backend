@@ -27,8 +27,9 @@ app:
 
   # CMF Chile — regístrate gratis en https://api.cmfchile.cl
   cmf:
+    enabled: false
     api-key: ${CMF_API_KEY:}
-    base-url: https://api.cmfchile.cl/api-sbifv3/recursos_a2
+    base-url: https://api.cmfchile.cl/api-sbifv3/recursos_api
 
   # WhoisXML — opcional, 500 gratis/mes en https://www.whoisxmlapi.com
   # Si no hay API key, se usa RDAP (público, sin key)
