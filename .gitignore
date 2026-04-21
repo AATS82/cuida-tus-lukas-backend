@@ -1,0 +1,8 @@
+target/
+*.class
+*.jar
+*.war
+.mvn/
+start.ps1
+application-local.yml
+.env

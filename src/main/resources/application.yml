@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/cuida_tus_lukas?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Santiago&characterEncoding=UTF-8
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        default_schema: cuida_tus_lukas
+  cache:
+    type: simple
+
+# ─── APIs externas ─────────────────────────────────────────────────────────────
+app:
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:4201,http://localhost:4200}
+
+  # CMF Chile — regístrate gratis en https://api.cmfchile.cl
+  cmf:
+    api-key: ${CMF_API_KEY:}
+    base-url: https://api.cmfchile.cl/api-sbifv3/recursos_a2
+
+  # WhoisXML — opcional, 500 gratis/mes en https://www.whoisxmlapi.com
+  # Si no hay API key, se usa RDAP (público, sin key)
+  whois:
+    api-key: ${WHOIS_API_KEY:}
+    xml-url: https://www.whoisxmlapi.com/whoisserver/WhoisService
+    rdap-url: https://rdap.org/domain
+    rdap-cl-url: https://rdap.nic.cl/domain
+
+logging:
+  level:
+    com.cuidatuslukas: INFO
+    org.springframework.web.client: WARN
