@@ -44,6 +44,18 @@ app:
   content-analysis:
     enabled: true
 
+  # Google Safe Browsing API — gratis 10.000/día
+  # Activar en: https://console.cloud.google.com → "Safe Browsing API"
+  google-safe-browsing:
+    api-key: ${GOOGLE_SAFE_BROWSING_KEY:}
+    url: https://safebrowsing.googleapis.com/v4/threatMatches:find
+
+  # VirusTotal API — gratis 500/día, 4/minuto
+  # Registrar en: https://www.virustotal.com/gui/join-us
+  virustotal:
+    api-key: ${VIRUSTOTAL_API_KEY:}
+    base-url: https://www.virustotal.com/api/v3
+
 logging:
   level:
     com.cuidatuslukas: INFO
