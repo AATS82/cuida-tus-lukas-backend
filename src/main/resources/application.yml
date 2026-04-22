@@ -39,6 +39,11 @@ app:
     rdap-url: https://rdap.org/domain
     rdap-cl-url: https://rdap.nic.cl/domain
 
+  # Análisis de contenido web — fetch real de la página (agrega ~2-4s)
+  # No requiere API key. El RestTemplate usa connect=3s / read=5s por defecto.
+  content-analysis:
+    enabled: true
+
 logging:
   level:
     com.cuidatuslukas: INFO

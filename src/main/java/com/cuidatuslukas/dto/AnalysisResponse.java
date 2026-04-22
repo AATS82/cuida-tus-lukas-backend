@@ -52,6 +52,9 @@ public class AnalysisResponse {
     /** Fragmentos de testimonios de afectados */
     private List<String> testimonials;
 
+    /** Keywords de estafa detectados en el contenido del sitio */
+    private List<String> contentKeywordsDetected;
+
     // ── Factores detallados ────────────────────────────────────────────────────
 
     /** Lista de factores evaluados con su badge de riesgo */
